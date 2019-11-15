@@ -1,0 +1,43 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'idea'
+    id 'org.springframework.boot' version '2.1.7.RELEASE'
+}
+
+version = '0.1'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+compileJava.options.encoding = 'UTF-8'
+
+sourceSets {
+    mainClassName = "focus.demo.Main"
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+
+    implementation "org.springframework.boot:spring-boot-starter:2.1.7.RELEASE"
+    implementation "org.springframework.boot:spring-boot-starter-web:2.1.7.RELEASE"
+    implementation "org.springframework.boot:spring-boot-starter-test:2.1.7.RELEASE"
+
+    implementation "com.baomidou:mybatis-plus-boot-starter:3.2.0"
+    implementation "org.projectlombok:lombok:1.18.8"
+
+    implementation "org.flywaydb:flyway-core:5.2.1"
+
+    implementation "mysql:mysql-connector-java:5.1.38"
+    implementation "com.alibaba:druid-spring-boot-starter:1.1.10"
+    implementation "com.alibaba:fastjson:1.2.35"
+
+    implementation "log4j:log4j:1.2.17"
+
+    implementation "com.google.guava:guava:28.1-jre"
+
+}

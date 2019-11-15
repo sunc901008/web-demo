@@ -1,0 +1,34 @@
+# DataSource Config
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/demo?useUnicode=true&characterEncoding=utf-8&useSSL=false&?useServerPrepStmts=false&rewriteBatchedStatements=true
+    username: root
+    password: mysqlpwd@123
+    druid:
+      filters: stat
+      initial-size: 3
+      min-idle: 3
+      max-active: 30
+      max-wait: 30000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1 FROM DUAL
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 50
+      remove-abandoned: true
+      remove-abandoned-timeout: 30
+  flyway:
+    locations: classpath:db/
+    table: demo_schema_version
+
+server:
+  port: 8080
+
+# Logger Config
+logging:
+  level:
+    focus.demo: debug
