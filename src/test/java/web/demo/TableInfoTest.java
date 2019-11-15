@@ -26,7 +26,7 @@ public class TableInfoTest {
 
     @Test
     public void create() {
-        System.out.println(("----- selectAll method test ------"));
+        System.out.println(("----- create table test ------"));
 
         String tbl = "{\"talName\":\"test name\"}";
         try {
