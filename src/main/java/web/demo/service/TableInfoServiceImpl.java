@@ -1,6 +1,7 @@
 package web.demo.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import web.demo.domain.mapper.ColumnInfoMapper;
 import web.demo.domain.param.TableInfoParam;
 import web.demo.domain.entity.ColumnInfo;
@@ -26,6 +27,7 @@ public class TableInfoServiceImpl {
     @Resource
     private ColumnInfoMapper columnInfoMapper;
 
+    @Transactional
     public TableInfo insert(TableInfoParam tableInfoParam) {
         TableInfo tableInfo = tableInfoParam.getTable();
         tableInfoMapper.insert(tableInfo);

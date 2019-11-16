@@ -13,13 +13,13 @@ import web.demo.domain.vo.ColumnInfoVO;
  */
 
 @Data
-@TableName("table_info")
+@TableName("column_info")
 public class ColumnInfo extends BaseEntity {
 
     @TableField("col_name")
     private String colName;
-    @TableField(value = "table_fk")
-    private Long tableFk;
+    @TableField(value = "tbl_fk")
+    private Long tblFk;
 
     public String getColName() {
         return colName;
@@ -29,12 +29,12 @@ public class ColumnInfo extends BaseEntity {
         this.colName = colName;
     }
 
-    public Long getTableFk() {
-        return tableFk;
+    public Long getTblFk() {
+        return tblFk;
     }
 
-    public void setTableFk(Long tableFk) {
-        this.tableFk = tableFk;
+    public void setTblFk(Long tblFk) {
+        this.tblFk = tblFk;
     }
 
     public ColumnInfoVO columnInfoVO() {

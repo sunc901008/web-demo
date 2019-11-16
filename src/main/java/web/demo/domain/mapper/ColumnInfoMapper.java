@@ -1,6 +1,7 @@
 package web.demo.domain.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Select;
 import web.demo.domain.entity.ColumnInfo;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public interface ColumnInfoMapper extends BaseMapper<ColumnInfo> {
      * @param tblFk table foreign key
      * @return column list
      */
+    @Select("SELECT * FROM column_info WHERE tbl_fk = #{tblFk}")
     List<ColumnInfo> selectByTbl(Long tblFk);
 
 }

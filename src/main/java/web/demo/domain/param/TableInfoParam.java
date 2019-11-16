@@ -22,7 +22,6 @@ public class TableInfoParam extends BaseParamObject<TableInfoParam> {
     @Size(max = 45, message = "length illegal", errCode = ExceptionCode.NAME_LENGTH_ERROR)
     @NotBlank(errCode = ExceptionCode.NAME_NULL_ERROR)
     private String talName;
-    @Size(max = 255, message = "length illegal", errCode = ExceptionCode.DESCRIPTION_LENGTH_ERROR)
     private String description;
     private Long userFk;
     @NotNull

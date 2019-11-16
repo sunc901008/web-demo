@@ -20,7 +20,7 @@ public class ColumnInfoParam extends BaseParamObject {
     public ColumnInfo getColumn(Long tableFk) {
         ColumnInfo columnInfo = new ColumnInfo();
         columnInfo.setColName(this.colName);
-        columnInfo.setTableFk(tableFk);
+        columnInfo.setTblFk(tableFk);
         return columnInfo;
     }
 }
