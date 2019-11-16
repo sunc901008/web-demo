@@ -17,6 +17,14 @@ public class ColumnInfoParam extends BaseParamObject {
     @NotBlank
     private String colName;
 
+    public String getColName() {
+        return colName;
+    }
+
+    public void setColName(String colName) {
+        this.colName = colName;
+    }
+
     public ColumnInfo getColumn(Long tableFk) {
         ColumnInfo columnInfo = new ColumnInfo();
         columnInfo.setColName(this.colName);
