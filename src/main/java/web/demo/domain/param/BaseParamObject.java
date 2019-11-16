@@ -1,4 +1,4 @@
-package web.demo.domain.dto;
+package web.demo.domain.param;
 
 import com.alibaba.fastjson.JSONObject;
 import web.demo.base.NotBlank;
@@ -13,11 +13,11 @@ import java.util.List;
 
 /**
  * @author sunc
- * @date 2019/11/15 18:29
- * @description BaseValueObject
+ * @date 2019/11/16 16:19
+ * @description BaseParamObject
  */
 
-public abstract class BaseValueObject<T extends BaseValueObject> {
+public abstract class BaseParamObject<T extends BaseParamObject> {
 
     public T init(String text, Class<T> clazz) throws BaseException {
         T obj = JSONObject.parseObject(text, clazz);

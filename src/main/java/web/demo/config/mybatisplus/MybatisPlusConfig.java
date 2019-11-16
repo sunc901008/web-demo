@@ -22,7 +22,7 @@ import java.util.List;
  * @since 2018-08-10
  */
 @Configuration
-@MapperScan(basePackages = {"web.demo.mapper"})
+@MapperScan(basePackages = {"web.demo.domain.mapper"})
 public class MybatisPlusConfig {
 
     private final TenantContext tenantContext;

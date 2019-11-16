@@ -1,4 +1,4 @@
-package web.demo.domain.dto;
+package web.demo.domain.param;
 
 import web.demo.base.NotBlank;
 import web.demo.base.NotNull;
@@ -6,6 +6,7 @@ import web.demo.base.Size;
 import web.demo.domain.entity.ColumnInfo;
 import web.demo.domain.entity.TableInfo;
 import web.demo.exception.BaseException;
+import web.demo.exception.ExceptionCode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,14 +14,15 @@ import java.util.List;
 /**
  * @author sunc
  * @date 2019/11/15 18:07
- * @description TableInfoParam
+ * @description TblDetailVO
  */
 
-public class TableInfoParam extends BaseValueObject<TableInfoParam> {
+public class TableInfoParam extends BaseParamObject<TableInfoParam> {
     private Long fk;
-    @Size(max = 20, min = 6, message = "name length illegal", errCode = 10001)
-    @NotBlank
+    @Size(max = 45, message = "length illegal", errCode = ExceptionCode.NAME_LENGTH_ERROR)
+    @NotBlank(errCode = ExceptionCode.NAME_NULL_ERROR)
     private String talName;
+    @Size(max = 255, message = "length illegal", errCode = ExceptionCode.DESCRIPTION_LENGTH_ERROR)
     private String description;
     private Long userFk;
     @NotNull
@@ -78,7 +80,7 @@ public class TableInfoParam extends BaseValueObject<TableInfoParam> {
     public TableInfo getTable() {
         TableInfo tableInfo = new TableInfo();
         tableInfo.setDescription(this.description);
-        tableInfo.setTalName(this.talName);
+        tableInfo.setTblName(this.talName);
         return tableInfo;
     }
 

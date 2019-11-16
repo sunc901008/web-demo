@@ -1,7 +1,7 @@
-package web.demo.mapper;
+package web.demo.domain.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import web.demo.domain.entity.ColumnInfo;
+import web.demo.domain.entity.TableInfo;
 
 /**
  * @author sunc
@@ -9,6 +9,6 @@ import web.demo.domain.entity.ColumnInfo;
  * @description TableInfoMapper
  */
 
-public interface ColumnInfoMapper extends BaseMapper<ColumnInfo> {
+public interface TableInfoMapper extends BaseMapper<TableInfo> {
 
 }

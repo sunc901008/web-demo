@@ -4,6 +4,10 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import web.demo.domain.vo.TblBasicVO;
+import web.demo.domain.vo.TblDetailVO;
+
+import java.util.Date;
 
 
 /**
@@ -19,7 +23,7 @@ public class TableInfo extends BaseEntity {
     @TableField(fill = FieldFill.INSERT)
     private Long fk;
     @TableField("tbl_name")
-    private String talName;
+    private String tblName;
     private String description;
     @TableField(value = "user_fk")
     private Long userFk;
@@ -28,16 +32,12 @@ public class TableInfo extends BaseEntity {
         return fk;
     }
 
-    public void setFk(Long fk) {
-        this.fk = fk;
+    public String getTblName() {
+        return tblName;
     }
 
-    public String getTalName() {
-        return talName;
-    }
-
-    public void setTalName(String talName) {
-        this.talName = talName;
+    public void setTblName(String tblName) {
+        this.tblName = tblName;
     }
 
     public String getDescription() {
@@ -55,4 +55,21 @@ public class TableInfo extends BaseEntity {
     public void setUserFk(Long userFk) {
         this.userFk = userFk;
     }
+
+    public TblBasicVO tblBasicVO() {
+        return tblDetailVO();
+    }
+
+    public TblDetailVO tblDetailVO() {
+        TblDetailVO tblBasicVO = new TblDetailVO();
+        tblBasicVO.setId(this.getId());
+        tblBasicVO.setCreateTime(this.getCreateTime());
+        tblBasicVO.setUpdateTime(this.getUpdateTime());
+        tblBasicVO.setTblName(this.getTblName());
+        tblBasicVO.setDescription(this.getDescription());
+        tblBasicVO.setUserFk(this.getUserFk());
+        return tblBasicVO;
+    }
+
 }
+

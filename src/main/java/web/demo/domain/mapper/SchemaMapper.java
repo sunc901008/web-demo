@@ -1,4 +1,4 @@
-package web.demo.mapper;
+package web.demo.domain.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;

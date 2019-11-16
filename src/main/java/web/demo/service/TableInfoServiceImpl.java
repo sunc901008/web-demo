@@ -1,11 +1,13 @@
 package web.demo.service;
 
 import org.springframework.stereotype.Service;
-import web.demo.domain.dto.TableInfoParam;
+import web.demo.domain.mapper.ColumnInfoMapper;
+import web.demo.domain.param.TableInfoParam;
 import web.demo.domain.entity.ColumnInfo;
 import web.demo.domain.entity.TableInfo;
-import web.demo.domain.repository.TableInfoRepo;
-import web.demo.mapper.TableInfoMapper;
+import web.demo.domain.mapper.TableInfoMapper;
+import web.demo.domain.vo.TblBasicVO;
+import web.demo.domain.vo.TblDetailVO;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -17,25 +19,27 @@ import java.util.List;
  */
 
 @Service
-public class TableInfoServiceImpl implements TableInfoRepo {
+public class TableInfoServiceImpl {
 
     @Resource
     private TableInfoMapper tableInfoMapper;
     @Resource
-    private ColumnInfoServiceImpl columnInfoService;
+    private ColumnInfoMapper columnInfoMapper;
 
     public TableInfo insert(TableInfoParam tableInfoParam) {
         TableInfo tableInfo = tableInfoParam.getTable();
         tableInfoMapper.insert(tableInfo);
         List<ColumnInfo> columns = tableInfoParam.getColumns(tableInfo.getFk());
-        columnInfoService.inserts(columns);
+        columns.forEach(columnInfoMapper::insert);
         return tableInfo;
     }
 
-    @Override
-    public TableInfo insert(TableInfo tableInfo) {
-        tableInfoMapper.insert(tableInfo);
-        return tableInfo;
+    public TblDetailVO selectById(Long id) {
+        TableInfo tableInfo = tableInfoMapper.selectById(id);
+        TblDetailVO tblDetailVO = tableInfo.tblDetailVO();
+        List<ColumnInfo> columns = columnInfoMapper.selectByTbl(tableInfo.getFk());
+        columns.forEach(col -> tblDetailVO.addColumnVO(col.columnInfoVO()));
+        return tblDetailVO;
     }
 
 }

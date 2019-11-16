@@ -2,8 +2,7 @@ package web.demo.service;
 
 import org.springframework.stereotype.Service;
 import web.demo.domain.entity.ColumnInfo;
-import web.demo.domain.repository.ColumnInfoRepo;
-import web.demo.mapper.ColumnInfoMapper;
+import web.demo.domain.mapper.ColumnInfoMapper;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -15,18 +14,21 @@ import java.util.List;
  */
 
 @Service
-public class ColumnInfoServiceImpl implements ColumnInfoRepo {
+public class ColumnInfoServiceImpl {
 
     @Resource
     private ColumnInfoMapper columnInfoMapper;
 
-    @Override
     public void inserts(List<ColumnInfo> columns) {
         columns.forEach(this::insert);
     }
 
-    @Override
     public void insert(ColumnInfo column) {
         columnInfoMapper.insert(column);
     }
+
+    public List<ColumnInfo> selectByTbl(Long tblFk) {
+        return columnInfoMapper.selectByTbl(tblFk);
+    }
+
 }

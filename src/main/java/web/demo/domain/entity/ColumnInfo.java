@@ -3,6 +3,7 @@ package web.demo.domain.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import web.demo.domain.vo.ColumnInfoVO;
 
 
 /**
@@ -35,4 +36,14 @@ public class ColumnInfo extends BaseEntity {
     public void setTableFk(Long tableFk) {
         this.tableFk = tableFk;
     }
+
+    public ColumnInfoVO columnInfoVO() {
+        ColumnInfoVO columnInfoVO = new ColumnInfoVO();
+        columnInfoVO.setId(this.getId());
+        columnInfoVO.setCreateTime(this.getCreateTime());
+        columnInfoVO.setUpdateTime(this.getUpdateTime());
+        columnInfoVO.setColName(this.getColName());
+        return columnInfoVO;
+    }
+
 }

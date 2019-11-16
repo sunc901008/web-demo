@@ -7,7 +7,7 @@ package web.demo.exception;
  */
 
 public class BaseException extends Exception {
-    public static final int DEFAULT_ERROR = 10000;
+    static final int DEFAULT_ERROR = 10000;
     public String message;
     public int errCode;
     public Object promptMsg;
