@@ -5,8 +5,7 @@ import web.demo.base.NotNull;
 import web.demo.base.Size;
 import web.demo.domain.entity.ColumnInfo;
 import web.demo.domain.entity.TableInfo;
-import web.demo.exception.BaseException;
-import web.demo.exception.ExceptionCode;
+import web.demo.exception.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +66,7 @@ public class TableInfoParam extends BaseParamObject<TableInfoParam> {
         this.columns = columns;
     }
 
-    public static TableInfoParam init(String text) throws BaseException {
+    public static TableInfoParam init(String text) throws DescriptionLenInvalidException, NameLenInvalidException, NameNullException, NotDefineException {
         return new TableInfoParam().init(text, TableInfoParam.class);
     }
 

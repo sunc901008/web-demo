@@ -1,13 +1,14 @@
 package web.demo.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import web.demo.domain.mapper.ColumnInfoMapper;
-import web.demo.domain.param.TableInfoParam;
 import web.demo.domain.entity.ColumnInfo;
 import web.demo.domain.entity.TableInfo;
+import web.demo.domain.mapper.ColumnInfoMapper;
 import web.demo.domain.mapper.TableInfoMapper;
-import web.demo.domain.vo.TblBasicVO;
+import web.demo.domain.param.TableInfoParam;
 import web.demo.domain.vo.TblDetailVO;
 
 import javax.annotation.Resource;
@@ -20,6 +21,7 @@ import java.util.List;
  */
 
 @Service
+@Transactional(propagation = Propagation.NESTED, isolation = Isolation.DEFAULT, rollbackFor = Exception.class)
 public class TableInfoServiceImpl {
 
     @Resource
@@ -27,7 +29,6 @@ public class TableInfoServiceImpl {
     @Resource
     private ColumnInfoMapper columnInfoMapper;
 
-    @Transactional
     public TableInfo insert(TableInfoParam tableInfoParam) {
         TableInfo tableInfo = tableInfoParam.getTable();
         tableInfoMapper.insert(tableInfo);
@@ -38,10 +39,8 @@ public class TableInfoServiceImpl {
 
     public TblDetailVO selectById(Long id) {
         TableInfo tableInfo = tableInfoMapper.selectById(id);
-        TblDetailVO tblDetailVO = tableInfo.tblDetailVO();
         List<ColumnInfo> columns = columnInfoMapper.selectByTbl(tableInfo.getFk());
-        columns.forEach(col -> tblDetailVO.addColumnVO(col.columnInfoVO()));
-        return tblDetailVO;
+        return new TblDetailVO(tableInfo, columns);
     }
 
 }

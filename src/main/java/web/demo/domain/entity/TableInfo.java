@@ -4,10 +4,6 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-import web.demo.domain.vo.TblBasicVO;
-import web.demo.domain.vo.TblDetailVO;
-
-import java.util.Date;
 
 
 /**
@@ -54,21 +50,6 @@ public class TableInfo extends BaseEntity {
 
     public void setUserFk(Long userFk) {
         this.userFk = userFk;
-    }
-
-    public TblBasicVO tblBasicVO() {
-        return tblDetailVO();
-    }
-
-    public TblDetailVO tblDetailVO() {
-        TblDetailVO tblBasicVO = new TblDetailVO();
-        tblBasicVO.setId(this.getId());
-        tblBasicVO.setCreateTime(this.getCreateTime());
-        tblBasicVO.setUpdateTime(this.getUpdateTime());
-        tblBasicVO.setTblName(this.getTblName());
-        tblBasicVO.setDescription(this.getDescription());
-        tblBasicVO.setUserFk(this.getUserFk());
-        return tblBasicVO;
     }
 
 }

@@ -1,5 +1,7 @@
 package web.demo.domain.vo;
 
+import web.demo.domain.entity.TableInfo;
+
 import java.util.Date;
 
 /**
@@ -19,52 +21,42 @@ public class TblBasicVO extends BaseValueObject {
     private String description;
     private Long userFk;
 
-    public Long getId() {
-        return id;
+    public TblBasicVO(TableInfo tableInfo) {
+        this.id = tableInfo.getId();
+        this.createTime = tableInfo.getCreateTime();
+        this.updateTime = tableInfo.getUpdateTime();
+        this.tblName = tableInfo.getTblName();
+        this.description = tableInfo.getDescription();
+        this.userFk = tableInfo.getUserFk();
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Long getId() {
+        return id;
     }
 
     public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
     public Date getUpdateTime() {
         return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
     }
 
     public String getTblName() {
         return tblName;
     }
 
-    public void setTblName(String tblName) {
-        this.tblName = tblName;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public Long getUserFk() {
         return userFk;
     }
 
-    public void setUserFk(Long userFk) {
-        this.userFk = userFk;
+    @Override
+    public String toString() {
+        return super.toString();
     }
 
 }

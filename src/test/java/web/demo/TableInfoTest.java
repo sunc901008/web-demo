@@ -2,9 +2,7 @@ package web.demo;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -33,13 +31,12 @@ public class TableInfoTest {
     private TableInfoMapper tableInfoMapper;
 
     private long tblId;
-    private String tblName = "testTblName";
-    private String colName = "testColName";
-    private String updateTblName = "updateTblName";
+    private static String tblName = "testTblName";
+    private static String colName = "testColName";
+    private static String tblInfo;
 
-    @Before
-    public void create() {
-        System.out.println(("----- create table test ------"));
+    @BeforeClass
+    public static void tableInfo() {
         JSONObject json = new JSONObject();
         json.put("talName", tblName);
         JSONArray columns = new JSONArray();
@@ -47,8 +44,17 @@ public class TableInfoTest {
         col.put("colName", colName);
         columns.add(col);
         json.put("columns", columns);
+        tblInfo = json.toJSONString();
+    }
+
+    /**
+     * 创建表信息
+     */
+    @Before
+    public void init() {
+        System.out.println(("----- create table ------"));
         try {
-            TableInfoParam t = TableInfoParam.init(json.toJSONString());
+            TableInfoParam t = TableInfoParam.init(tblInfo);
             TableInfo table = tableInfoService.insert(t);
             tblId = table.getId();
             Assert.assertEquals(tblName, table.getTblName());
@@ -59,6 +65,20 @@ public class TableInfoTest {
         }
     }
 
+    /**
+     * 删除表信息
+     */
+    @After
+    public void clear() {
+        System.out.println(("----- delete table ------"));
+        int delete = tableInfoMapper.deleteById(tblId);
+        Assert.assertEquals(1, delete);
+        System.out.println(String.format("delete table success. tblId: %s", tblId));
+    }
+
+    /**
+     * 根据id查询表信息
+     */
     @Test
     public void selectById() {
         System.out.println("----- table selectById test ------");
@@ -66,13 +86,17 @@ public class TableInfoTest {
         Assert.assertEquals(tblName, table.getTblName());
         Assert.assertEquals(1, table.getColumns().size());
         Assert.assertEquals(colName, table.getColumns().get(0).getColName());
-        System.out.println(String.format("table selectById. table: %s ", table.toJsonString()));
+        System.out.println(String.format("table selectById. table: %s ", table.toString()));
     }
 
+    /**
+     * 更新表名
+     */
     @Test
     public void updateTblName() {
         System.out.println("----- table update tblName test ------");
         TableInfo table = tableInfoMapper.selectById(tblId);
+        String updateTblName = "updateTblName";
         table.setTblName(updateTblName);
         int update = tableInfoMapper.updateById(table);
         Assert.assertEquals(1, update);

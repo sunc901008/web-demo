@@ -11,7 +11,8 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 
 public abstract class BaseValueObject {
 
-    public String toJsonString() {
+    @Override
+    public String toString() {
         return JSON.toJSONString(this, SerializerFeature.WriteDateUseDateFormat, SerializerFeature.WriteMapNullValue);
     }
 

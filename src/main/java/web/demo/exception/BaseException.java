@@ -13,6 +13,11 @@ public class BaseException extends Exception {
     public Object promptMsg;
     public Object msgParams;
 
+    public BaseException() {
+        super();
+        this.errCode = DEFAULT_ERROR;
+    }
+
     public BaseException(int errCode, String msg) {
         super(msg);
         this.message = msg;

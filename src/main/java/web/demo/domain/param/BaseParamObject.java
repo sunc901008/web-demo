@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import web.demo.base.NotBlank;
 import web.demo.base.NotNull;
 import web.demo.base.Size;
-import web.demo.exception.BaseException;
+import web.demo.exception.*;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -19,13 +19,13 @@ import java.util.List;
 
 public abstract class BaseParamObject<T extends BaseParamObject> {
 
-    public T init(String text, Class<T> clazz) throws BaseException {
+    public T init(String text, Class<T> clazz) throws DescriptionLenInvalidException, NameLenInvalidException, NameNullException, NotDefineException {
         T obj = JSONObject.parseObject(text, clazz);
         obj.valid();
         return obj;
     }
 
-    public void valid() throws BaseException {
+    public void valid() throws DescriptionLenInvalidException, NameLenInvalidException, NameNullException, NotDefineException {
         List<Field> list = new ArrayList<>(Arrays.asList(this.getClass().getDeclaredFields()));
         try {
             for (Field field : list) {
@@ -37,14 +37,14 @@ public abstract class BaseParamObject<T extends BaseParamObject> {
                 NotNull notNull = field.getAnnotation(NotNull.class);
                 if (notNull != null) {
                     if (object == null) {
-                        throw new BaseException(notNull.errCode(), notNull.message());
+                        ExceptionCode.createException(notNull.errCode(), notNull.message());
                     }
                 }
 
                 NotBlank notBlank = field.getAnnotation(NotBlank.class);
                 if (notBlank != null) {
                     if (object == null || String.valueOf(object).trim().isEmpty()) {
-                        throw new BaseException(notBlank.errCode(), notBlank.message());
+                        ExceptionCode.createException(notBlank.errCode(), notBlank.message());
                     }
                 }
 
@@ -56,11 +56,11 @@ public abstract class BaseParamObject<T extends BaseParamObject> {
                             continue;
                         }
                     }
-                    throw new BaseException(size.errCode(), size.message());
+                    ExceptionCode.createException(size.errCode(), size.message());
                 }
             }
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            ExceptionCode.createException(-1, e.getMessage());
         }
     }
 
