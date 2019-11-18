@@ -66,4 +66,5 @@ public class TblBasicVO extends BaseValueObject {
     public void setUserFk(Long userFk) {
         this.userFk = userFk;
     }
+
 }

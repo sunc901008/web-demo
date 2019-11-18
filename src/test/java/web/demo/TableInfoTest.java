@@ -6,12 +6,11 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import web.demo.domain.entity.TableInfo;
 import web.demo.domain.mapper.TableInfoMapper;
 import web.demo.domain.param.TableInfoParam;
-import web.demo.domain.entity.TableInfo;
 import web.demo.domain.vo.TblDetailVO;
 import web.demo.exception.BaseException;
 import web.demo.service.TableInfoServiceImpl;
@@ -50,10 +49,10 @@ public class TableInfoTest {
         json.put("columns", columns);
         try {
             TableInfoParam t = TableInfoParam.init(json.toJSONString());
-            TableInfoParam obj = JSONObject.parseObject(json.toJSONString(), TableInfoParam.class);
             TableInfo table = tableInfoService.insert(t);
             tblId = table.getId();
             Assert.assertEquals(tblName, table.getTblName());
+            System.out.println(String.format("create table success. tblId: %s tblName: %s", tblId, tblName));
         } catch (BaseException e) {
             System.out.println(e.errCode);
             System.out.println(e.message);
@@ -62,20 +61,22 @@ public class TableInfoTest {
 
     @Test
     public void selectById() {
-        System.out.println(("----- table selectById test ------"));
+        System.out.println("----- table selectById test ------");
         TblDetailVO table = tableInfoService.selectById(tblId);
         Assert.assertEquals(tblName, table.getTblName());
         Assert.assertEquals(1, table.getColumns().size());
         Assert.assertEquals(colName, table.getColumns().get(0).getColName());
+        System.out.println(String.format("table selectById. table: %s ", table.toJsonString()));
     }
 
     @Test
     public void updateTblName() {
-        System.out.println(("----- table update tblName test ------"));
+        System.out.println("----- table update tblName test ------");
         TableInfo table = tableInfoMapper.selectById(tblId);
         table.setTblName(updateTblName);
         int update = tableInfoMapper.updateById(table);
         Assert.assertEquals(1, update);
+        System.out.println(String.format("table update. table: %s ", table.toJsonString()));
     }
 
 }

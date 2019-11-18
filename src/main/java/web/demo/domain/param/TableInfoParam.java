@@ -71,10 +71,9 @@ public class TableInfoParam extends BaseParamObject<TableInfoParam> {
         return new TableInfoParam().init(text, TableInfoParam.class);
     }
 
-//    @Override
-//    public void valid() throws BaseException {
-//        throw new BaseException(9999, "test");
-//    }
+    @Override
+    public void valid() {
+    }
 
     public TableInfo getTable() {
         TableInfo tableInfo = new TableInfo();
