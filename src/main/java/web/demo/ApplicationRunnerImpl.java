@@ -2,6 +2,7 @@ package web.demo;
 
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.stereotype.Component;
 import web.demo.base.Constant;
 import web.demo.domain.mapper.SchemaMapper;
 
@@ -16,7 +17,7 @@ import java.util.List;
  * @description ApplicationRunnerImpl
  */
 
-//@Component
+@Component
 public class ApplicationRunnerImpl implements ApplicationRunner {
 
     @Resource
